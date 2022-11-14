@@ -1,56 +1,93 @@
-import { Button, TextField } from "@mui/material";
-import { Box } from "@mui/system";
+import { AccountCircle, GitHub, Google, Lock } from "@mui/icons-material";
+import { InputAdornment } from "@mui/material";
 import { UserContext } from "contexts/user";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  EmailInput,
+  FormBox,
+  LinkDescription,
+  LoginButton,
+  LoginOptionsText,
+  LoginOptionsWrapper,
+  LoginWrapper,
+  PasswordInput,
+  RegisterLink,
+  Title,
+} from "./Login.styles";
 
 export const Login: React.FC = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const navigate = useNavigate();
   const { signIn } = React.useContext(UserContext);
+  const navigate = useNavigate();
 
-  const onEmailInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setEmail(value);
-  };
-  const onPasswordInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setPassword(value);
-  };
+  const onEmailInputChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+    setEmail(event.target.value);
+  const onPasswordInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => setPassword(event.target.value);
   const onLoginButtonClick = () => {
     const user = signIn(email, password);
-    if (user?.email === email)
-      navigate("/");
+    if (!user?.name) return;
+    navigate("/home");
   };
 
   return (
-    <Box>
-      <TextField
-        variant="outlined"
-        type="email"
-        label="Enter your E-mail"
-        placeholder="user@host.com"
-        value={email}
-        onChange={onEmailInputChange}
-        required
-      />
+    <LoginWrapper>
+      <FormBox>
+        <Title>Acesse já sua conta!</Title>
+        <EmailInput
+          variant="outlined"
+          type="email"
+          label="Informe seu E-mail"
+          placeholder="user@host.com"
+          value={email}
+          onChange={onEmailInputChange}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <AccountCircle color="primary" />
+              </InputAdornment>
+            ),
+          }}
+          required
+        />
 
-      <TextField
-        variant="outlined"
-        type="password"
-        label="Enter your password"
-        value={password}
-        onChange={onPasswordInputChange}
-        required
-      />
+        <PasswordInput
+          variant="outlined"
+          type="password"
+          label="Informe sua Senha"
+          value={password}
+          onChange={onPasswordInputChange}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <Lock color="primary" />
+              </InputAdornment>
+            ),
+          }}
+          required
+        />
 
-      <Button
-        variant="contained"
-        onClick={onLoginButtonClick}
-      >
-        Login
-      </Button>
-    </Box>
+        <LoginButton variant="contained" onClick={onLoginButtonClick}>
+          Login
+        </LoginButton>
+
+        <LoginOptionsText>
+          Você também pode realizar login por...
+        </LoginOptionsText>
+
+        <LoginOptionsWrapper>
+          <GitHub color="primary" />
+          <Google color="primary" />
+        </LoginOptionsWrapper>
+
+        <LinkDescription>
+          Ainda não tem uma conta?{" "}
+          <RegisterLink to="/register">Crie agora!</RegisterLink>
+        </LinkDescription>
+      </FormBox>
+    </LoginWrapper>
   );
 };

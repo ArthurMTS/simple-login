@@ -14,10 +14,10 @@ export const Home: React.FC = () => {
       </Typography>
       <Typography>
         {user?.name ? 
-          <Link to="/dashboard">Go to our Dashboard</Link>  : 
+          <Link to="#">Go to our Dashboard</Link>  : 
           <Box>
             <Link to="/register">Sign Up</Link>
-            <Link to="/login">Sign In</Link>
+            <Link to="/">Sign In</Link>
           </Box>  
         }
       </Typography>

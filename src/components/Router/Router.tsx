@@ -4,14 +4,12 @@ import { Register } from "pages/Register";
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-export const Router: React.FC = () => {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-      </Routes>
-    </BrowserRouter>
-  );
-};
+export const Router: React.FC = () => (
+  <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Login />} />
+      <Route path="/home" element={<Home />} />
+      <Route path="/register" element={<Register />} />
+    </Routes>
+  </BrowserRouter>
+);

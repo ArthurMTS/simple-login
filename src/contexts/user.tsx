@@ -33,6 +33,10 @@ export const UserProvider: React.FC <UserProviderProps> = ({ children }) => {
   const [user, setUser] = React.useState<UserType>(BLANK_USER);
 
   const signUp = (name: string, email: string, password: string) => {
+    if (users.some(user => user.email === email)) {
+      alert("Email já cadastrado");
+      return;
+    }
     const newUser = {
       name,
       email,
@@ -50,7 +54,7 @@ export const UserProvider: React.FC <UserProviderProps> = ({ children }) => {
       setUser(actualUser[0]);
       return user;
     } else
-      alert("Error, invalid user");
+      alert("Erro, usuário não encontrado");
   };
 
   const logoff = () => {
