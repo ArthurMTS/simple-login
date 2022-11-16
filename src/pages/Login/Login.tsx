@@ -14,6 +14,7 @@ import {
   PasswordInput,
   RegisterLink,
   Title,
+  FormControl
 } from "./Login.styles";
 
 export const Login: React.FC = () => {
@@ -24,55 +25,57 @@ export const Login: React.FC = () => {
 
   const onEmailInputChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setEmail(event.target.value);
-  const onPasswordInputChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => setPassword(event.target.value);
-  const onLoginButtonClick = () => {
-    const user = signIn(email, password);
-    if (!user?.name) return;
-    navigate("/home");
+  const onPasswordInputChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+    setPassword(event.target.value);
+  const onFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    //const user = signIn(email, password);
+    // if (!user?.name) return;
+    // navigate("/home");
   };
 
   return (
     <LoginWrapper>
       <FormBox>
-        <Title>Acesse já sua conta!</Title>
-        <EmailInput
-          variant="outlined"
-          type="email"
-          label="Informe seu E-mail"
-          placeholder="user@host.com"
-          value={email}
-          onChange={onEmailInputChange}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <AccountCircle color="primary" />
-              </InputAdornment>
-            ),
-          }}
-          required
-        />
+        <FormControl onSubmit={onFormSubmit}>
+          <Title>Acesse já sua conta!</Title>
+          <EmailInput
+            variant="outlined"
+            type="email"
+            label="Informe seu E-mail"
+            placeholder="user@host.com"
+            value={email}
+            onChange={onEmailInputChange}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <AccountCircle color="primary" />
+                </InputAdornment>
+              ),
+            }}
+            required
+          />
 
-        <PasswordInput
-          variant="outlined"
-          type="password"
-          label="Informe sua Senha"
-          value={password}
-          onChange={onPasswordInputChange}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <Lock color="primary" />
-              </InputAdornment>
-            ),
-          }}
-          required
-        />
+          <PasswordInput
+            variant="outlined"
+            type="password"
+            label="Informe sua Senha"
+            value={password}
+            onChange={onPasswordInputChange}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Lock color="primary" />
+                </InputAdornment>
+              ),
+            }}
+            required
+          />
 
-        <LoginButton variant="contained" onClick={onLoginButtonClick}>
-          Login
-        </LoginButton>
+          <LoginButton type="submit" variant="contained">
+            Login
+          </LoginButton>
+        </FormControl>
 
         <LoginOptionsText>
           Você também pode realizar login por...

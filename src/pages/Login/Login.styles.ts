@@ -61,6 +61,15 @@ export const Title = styled(Typography)({
   marginBottom: 20,
 });
 
+export const FormControl = styled("form")({
+  width: "100%",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: 15,
+});
+
 export const EmailInput = styled(TextField)({
   "& .MuiInputBase-input": {
     color: "#F7F7F7",

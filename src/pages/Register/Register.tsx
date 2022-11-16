@@ -21,6 +21,7 @@ import {
   Title,
   NameInput,
   BackLink,
+  FormControl,
 } from "./Register.styles";
 
 export const Register: React.FC = () => {
@@ -35,13 +36,13 @@ export const Register: React.FC = () => {
     setName(event.target.value);
   const onEmailInputChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setEmail(event.target.value);
-  const onPasswordInputChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => setPassword(event.target.value);
+  const onPasswordInputChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+    setPassword(event.target.value);
   const onConfirmPasswordInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => setConfirmPassword(event.target.value);
-  const onRegisterButtonClick = () => {
+  const onFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     signUp(name, email, password);
     navigate("/");
   };
@@ -53,75 +54,77 @@ export const Register: React.FC = () => {
           <ArrowBackIos />
         </BackLink>
         <Title>Crie já sua conta!</Title>
-        <NameInput
-          variant="outlined"
-          type="text"
-          label="Informe seu Nome"
-          placeholder="Nome Sobrenome"
-          value={name}
-          onChange={onNameInputChange}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <InsertEmoticon color="primary" />
-              </InputAdornment>
-            ),
-          }}
-          required
-        />
-        
-        <EmailInput
-          variant="outlined"
-          type="email"
-          label="Informe seu E-mail"
-          placeholder="user@host.com"
-          value={email}
-          onChange={onEmailInputChange}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <AccountCircle color="primary" />
-              </InputAdornment>
-            ),
-          }}
-          required
-        />
+        <FormControl onSubmit={onFormSubmit}>
+          <NameInput
+            variant="outlined"
+            type="text"
+            label="Informe seu Nome"
+            placeholder="Nome Sobrenome"
+            value={name}
+            onChange={onNameInputChange}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <InsertEmoticon color="primary" />
+                </InputAdornment>
+              ),
+            }}
+            required
+          />
 
-        <PasswordInput
-          variant="outlined"
-          type="password"
-          label="Informe sua Senha"
-          value={password}
-          onChange={onPasswordInputChange}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <Lock color="primary" />
-              </InputAdornment>
-            ),
-          }}
-          required
-        />
+          <EmailInput
+            variant="outlined"
+            type="email"
+            label="Informe seu E-mail"
+            placeholder="user@host.com"
+            value={email}
+            onChange={onEmailInputChange}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <AccountCircle color="primary" />
+                </InputAdornment>
+              ),
+            }}
+            required
+          />
 
-        <PasswordInput
-          variant="outlined"
-          type="password"
-          label="Confirme sua Senha"
-          value={confirmPassword}
-          onChange={onConfirmPasswordInputChange}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <Lock color="primary" />
-              </InputAdornment>
-            ),
-          }}
-          required
-        />
+          <PasswordInput
+            variant="outlined"
+            type="password"
+            label="Informe sua Senha"
+            value={password}
+            onChange={onPasswordInputChange}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Lock color="primary" />
+                </InputAdornment>
+              ),
+            }}
+            required
+          />
 
-        <RegisterButton variant="contained" onClick={onRegisterButtonClick}>
-          Cadastrar
-        </RegisterButton>
+          <PasswordInput
+            variant="outlined"
+            type="password"
+            label="Confirme sua Senha"
+            value={confirmPassword}
+            onChange={onConfirmPasswordInputChange}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Lock color="primary" />
+                </InputAdornment>
+              ),
+            }}
+            required
+          />
+
+          <RegisterButton type="submit" variant="contained">
+            Cadastrar
+          </RegisterButton>
+        </FormControl>
 
         <RegisterOptionsText>
           Você também pode realizar o Cadastro por...
