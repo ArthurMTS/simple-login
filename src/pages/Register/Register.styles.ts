@@ -1,4 +1,4 @@
-import { Button, TextField, Typography } from "@mui/material";
+import { TextField, Typography } from "@mui/material";
 import { Box, styled } from "@mui/system";
 import { Link } from "react-router-dom";
 import Background from "assets/images/background.jpg";
@@ -24,35 +24,6 @@ export const FormBox = styled(Box)({
   justifyContent: "center",
   gap: 15,
   position: "relative",
-  "& .MuiTextField-root": {
-    width: "80%",
-    "& .MuiInputBase-input::placeholder": {
-      color: "#F7F7F7",
-    },
-    "& .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {
-      color: "#F7F7F7",
-    },
-    "& .css-1sumxir-MuiFormLabel-root-MuiInputLabel-root": {
-      color: "#1976d2",
-    },
-    "& label.Mui-focused": {
-      color: "#1976d2",
-    },
-    '& .MuiInput-underline:after': {
-      borderBottomColor: 'yellow',
-    },
-    "& .MuiOutlinedInput-root": {
-      "& fieldset": {
-        borderColor: "#F7F7F7",
-      },
-      "&:hover fieldset": {
-        borderColor: "#1976d2",
-      },
-      "&.Mui-focused fieldset": {
-        borderColor: "#1976d2",
-      },
-    },
-  },
 });
 
 export const BackLink = styled(Link)({
@@ -83,44 +54,40 @@ export const FormControl = styled("form")({
 });
 
 export const NameInput = styled(TextField)({
+  width: "80%",
   "& .MuiInputBase-input": {
     color: "#F7F7F7",
   },
-});
-
-export const EmailInput = styled(TextField)({
-  "& .MuiInputBase-input": {
-    color: "#F7F7F7",
+  "& .css-1sumxir-MuiFormLabel-root-MuiInputLabel-root": {
+    color: "#1976d2",
   },
-});
-
-export const PasswordInput = styled(TextField)({
-  "& .MuiInputBase-input": {
-    color: "#F7F7F7",
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": {
+      borderColor: "#F7F7F7",
+    },
+    "&:hover fieldset": {
+      borderColor: "#1976d2",
+    },
+    "&.Mui-focused fieldset": {
+      borderColor: "#1976d2",
+    },
   },
-});
-
-export const RegisterButton = styled(Button)({
-  marginTop: 20,
-  fontSize: 18,
-});
-
-export const RegisterOptionsText = styled(Typography)({
-  fontSize: 16,
-  fontWeight: 500,
-  color: "#E7E7E7",
-});
-
-export const RegisterOptionsWrapper = styled(Box)({
-  display: "flex",
-  gap: 10,
-  "& .MuiSvgIcon-root": {
-    width: 35,
-    height: 35,
-    cursor: "pointer",
+  "&.error .css-1sumxir-MuiFormLabel-root-MuiInputLabel-root": {
+    color: "#ff0000 !important",
   },
-  "& .MuiSvgIcon-root:hover": {
-    transform: "scale(1.05)",
+  "&.error .MuiSvgIcon-root": {
+    color: "#ff0000 !important",
+  },
+  "&.error .MuiOutlinedInput-root": {
+    "& fieldset": {
+      borderColor: "#ff0000 !important",
+    },
+    "&:hover fieldset": {
+      borderColor: "#ff0000 !important",
+    },
+    "&.Mui-focused fieldset": {
+      borderColor: "#ff0000 !important",
+    },
   },
 });
 

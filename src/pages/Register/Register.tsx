@@ -1,23 +1,19 @@
 import {
-  AccountCircle,
   ArrowBackIos,
-  GitHub,
-  Google,
   InsertEmoticon,
-  Lock,
 } from "@mui/icons-material";
 import { InputAdornment } from "@mui/material";
+import { AlternativeOptions } from "components/AlternativeOptions";
+import { EmailInput } from "components/EmailInput";
+import { FormButton } from "components/FormButton";
+import { PasswordInput } from "components/PasswordInput";
 import { UserContext } from "contexts/user";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { validateNumbers, validateSpecial } from "utils/validate";
 import {
-  EmailInput,
   FormBox,
-  RegisterButton,
-  RegisterOptionsText,
-  RegisterOptionsWrapper,
   RegisterWrapper,
-  PasswordInput,
   Title,
   NameInput,
   BackLink,
@@ -31,6 +27,13 @@ export const Register: React.FC = () => {
   const [confirmPassword, setConfirmPassword] = React.useState("");
   const navigate = useNavigate();
   const { signUp } = React.useContext(UserContext);
+  const isDisabled = 
+    name === "" ||
+    email === "" ||
+    password === "" ||
+    password !== confirmPassword;
+  let isNameValid = !validateNumbers(name) && !validateSpecial(name);
+  let arePasswordConfirmed = confirmPassword === password;
 
   const onNameInputChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setName(event.target.value);
@@ -56,6 +59,9 @@ export const Register: React.FC = () => {
         <Title>Crie já sua conta!</Title>
         <FormControl onSubmit={onFormSubmit}>
           <NameInput
+            className={!isNameValid ? "error" : ""}
+            error={!isNameValid}
+            helperText={!isNameValid ? "Nome não pode conter números nem símbolos especiais" : ""}
             variant="outlined"
             type="text"
             label="Informe seu Nome"
@@ -73,67 +79,33 @@ export const Register: React.FC = () => {
           />
 
           <EmailInput
-            variant="outlined"
-            type="email"
-            label="Informe seu E-mail"
-            placeholder="user@host.com"
             value={email}
             onChange={onEmailInputChange}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <AccountCircle color="primary" />
-                </InputAdornment>
-              ),
-            }}
-            required
           />
 
           <PasswordInput
-            variant="outlined"
-            type="password"
-            label="Informe sua Senha"
             value={password}
             onChange={onPasswordInputChange}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Lock color="primary" />
-                </InputAdornment>
-              ),
-            }}
-            required
+            label="Informe sua Senha"
+            helperText="Senha não está no padrão"
           />
 
           <PasswordInput
-            variant="outlined"
-            type="password"
-            label="Confirme sua Senha"
             value={confirmPassword}
             onChange={onConfirmPasswordInputChange}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Lock color="primary" />
-                </InputAdornment>
-              ),
-            }}
-            required
+            helperText="Senhas não batem"
+            error={arePasswordConfirmed}
+            label="Confirme sua Senha"
           />
 
-          <RegisterButton type="submit" variant="contained">
+          <FormButton isDisabled={isDisabled}>
             Cadastrar
-          </RegisterButton>
+          </FormButton>
+
         </FormControl>
 
-        <RegisterOptionsText>
-          Você também pode realizar o Cadastro por...
-        </RegisterOptionsText>
-
-        <RegisterOptionsWrapper>
-          <GitHub color="primary" />
-          <Google color="primary" />
-        </RegisterOptionsWrapper>
+        <AlternativeOptions isLogin={false} />
+        
       </FormBox>
     </RegisterWrapper>
   );

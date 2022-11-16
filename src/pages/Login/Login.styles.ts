@@ -23,35 +23,6 @@ export const FormBox = styled(Box)({
   alignItems: "center",
   justifyContent: "center",
   gap: 15,
-  "& .MuiTextField-root": {
-    width: "80%",
-    "& .MuiInputBase-input::placeholder": {
-      color: "#F7F7F7",
-    },
-    "& .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {
-      color: "#F7F7F7",
-    },
-    "& .css-1sumxir-MuiFormLabel-root-MuiInputLabel-root": {
-      color: "#1976d2",
-    },
-    "& label.Mui-focused": {
-      color: "#1976d2",
-    },
-    '& .MuiInput-underline:after': {
-      borderBottomColor: 'yellow',
-    },
-    "& .MuiOutlinedInput-root": {
-      "& fieldset": {
-        borderColor: "#F7F7F7",
-      },
-      "&:hover fieldset": {
-        borderColor: "#1976d2",
-      },
-      "&.Mui-focused fieldset": {
-        borderColor: "#1976d2",
-      },
-    },
-  },
 });
 
 export const Title = styled(Typography)({
@@ -68,43 +39,6 @@ export const FormControl = styled("form")({
   alignItems: "center",
   justifyContent: "center",
   gap: 15,
-});
-
-export const EmailInput = styled(TextField)({
-  "& .MuiInputBase-input": {
-    color: "#F7F7F7",
-  },
-});
-
-export const PasswordInput = styled(TextField)({
-  "& .MuiInputBase-input": {
-    color: "#F7F7F7",
-  },
-});
-
-export const LoginButton = styled(Button)({
-  width: "100px",
-  marginTop: 20,
-  fontSize: 18,
-});
-
-export const LoginOptionsText = styled(Typography)({
-  fontSize: 16,
-  fontWeight: 500,
-  color: "#E7E7E7",
-});
-
-export const LoginOptionsWrapper = styled(Box)({
-  display: "flex",
-  gap: 10,
-  "& .MuiSvgIcon-root": {
-    width: 35,
-    height: 35,
-    cursor: "pointer",
-  },
-  "& .MuiSvgIcon-root:hover": {
-    transform: "scale(1.05)",
-  },
 });
 
 export const LinkDescription = styled(Typography)({
