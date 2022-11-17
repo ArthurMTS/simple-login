@@ -4,6 +4,10 @@ export const OptionsText = styled(Typography)({
   fontSize: 16,
   fontWeight: 500,
   color: "#E7E7E7",
+  textAlign: "center",
+  "@media (max-width: 290px)": {
+    fontSize: 12,
+  },
 });
 
 export const OptionsWrapper = styled(Box)({
@@ -19,4 +23,10 @@ export const OptionsWrapper = styled(Box)({
     transform: "scale(1.05)",
   },
   marginBottom: 5,
+  "@media (max-width: 290px)": {
+    "& .MuiSvgIcon-root": {
+      width: 25,
+      height: 25,
+    },
+  },
 });

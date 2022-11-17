@@ -23,6 +23,17 @@ export const FormBox = styled(Box)({
   alignItems: "center",
   justifyContent: "center",
   gap: 15,
+  "@media (max-width: 800px)": {
+    width: "60vw",
+  },
+  "@media (max-width: 540px)": {
+    width: "80vw",
+  },
+  "@media (max-width: 380px)": {
+    width: "100vw",
+    height: "100vh",
+    borderRadius: 0,
+  },
 });
 
 export const Title = styled(Typography)({
@@ -30,6 +41,9 @@ export const Title = styled(Typography)({
   fontWeight: 500,
   color: "#E7E7E7",
   marginBottom: 20,
+  "@media (max-width: 290px)": {
+    fontSize: 20,
+  },
 });
 
 export const FormControl = styled("form")({
@@ -39,6 +53,11 @@ export const FormControl = styled("form")({
   alignItems: "center",
   justifyContent: "center",
   gap: 15,
+  "@media (max-width: 290px)": {
+    "& .MuiFormControl-root": {
+      width: "90%",
+    },
+  },
 });
 
 export const LinkDescription = styled(Typography)({
