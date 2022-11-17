@@ -1,6 +1,6 @@
 import { styled, Button as MuiButton } from "@mui/material";
 
 export const Button = styled(MuiButton)({
-  marginTop: 20,
-  fontSize: 18,
+  marginTop: 0,
+  fontSize: 16,
 });

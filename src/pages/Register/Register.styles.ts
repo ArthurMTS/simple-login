@@ -14,7 +14,6 @@ export const RegisterWrapper = styled(Box)({
 
 export const FormBox = styled(Box)({
   width: "40vw",
-  height: "90vh",
   backgroundColor: "#222",
   borderRadius: 10,
   boxShadow: "5px 5px 10px #222",
@@ -29,7 +28,7 @@ export const FormBox = styled(Box)({
 export const BackLink = styled(Link)({
   color: "#1976d2",
   position: "absolute",
-  top: 30,
+  top: 15,
   left: 20,
   transition: "all 0.2s",
   "&:hover": {
@@ -41,7 +40,7 @@ export const Title = styled(Typography)({
   fontSize: 26,
   fontWeight: 500,
   color: "#E7E7E7",
-  marginBottom: 20,
+  margin: "10px 0 0px 0",
 });
 
 export const FormControl = styled("form")({
@@ -50,7 +49,7 @@ export const FormControl = styled("form")({
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
-  gap: 15,
+  gap: 10,
 });
 
 export const NameInput = styled(TextField)({
@@ -93,4 +92,18 @@ export const NameInput = styled(TextField)({
 
 export const RegisterLink = styled(Link)({
   color: "#1976d2",
+});
+
+export const ValidationWrapper = styled(Box)({
+  "& p": {
+    fontSize: 12,
+    fontWeigth: 10,
+    color: "#E7E7E7",
+  },
+  "& .valid": {
+    color: "#00FF00",
+  },
+  "& .invalid": {
+    color: "#FF0000",
+  },
 });

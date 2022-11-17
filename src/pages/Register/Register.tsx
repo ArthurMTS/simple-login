@@ -2,7 +2,7 @@ import {
   ArrowBackIos,
   InsertEmoticon,
 } from "@mui/icons-material";
-import { InputAdornment } from "@mui/material";
+import { InputAdornment, Typography } from "@mui/material";
 import { AlternativeOptions } from "components/AlternativeOptions";
 import { EmailInput } from "components/EmailInput";
 import { FormButton } from "components/FormButton";
@@ -10,7 +10,7 @@ import { PasswordInput } from "components/PasswordInput";
 import { UserContext } from "contexts/user";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { validateNumbers, validateSpecial } from "utils/validate";
+import { validateEmail, validateLength, validateLowerUpperNumber, validateName, validatePassword, validateSequenceLength, validateSpecial } from "utils/validate";
 import {
   FormBox,
   RegisterWrapper,
@@ -18,6 +18,7 @@ import {
   NameInput,
   BackLink,
   FormControl,
+  ValidationWrapper,
 } from "./Register.styles";
 
 export const Register: React.FC = () => {
@@ -27,13 +28,14 @@ export const Register: React.FC = () => {
   const [confirmPassword, setConfirmPassword] = React.useState("");
   const navigate = useNavigate();
   const { signUp } = React.useContext(UserContext);
-  const isDisabled = 
-    name === "" ||
-    email === "" ||
-    password === "" ||
-    password !== confirmPassword;
-  let isNameValid = !validateNumbers(name) && !validateSpecial(name);
-  let arePasswordConfirmed = confirmPassword === password;
+  let isNameValid = validateName(name);
+  let isEmailValid = validateEmail(email);
+  let isPasswordValid = validatePassword(password);
+  let isConfirmed = password === confirmPassword;
+  let length = validateLength(password);
+  let lowerUpperNumber = validateLowerUpperNumber(password);
+  let special = validateSpecial(password);
+  let sequence = validateSequenceLength(password)
 
   const onNameInputChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setName(event.target.value);
@@ -81,6 +83,7 @@ export const Register: React.FC = () => {
           <EmailInput
             value={email}
             onChange={onEmailInputChange}
+            isValid={isEmailValid}
           />
 
           <PasswordInput
@@ -88,17 +91,40 @@ export const Register: React.FC = () => {
             onChange={onPasswordInputChange}
             label="Informe sua Senha"
             helperText="Senha não está no padrão"
+            isValid={isPasswordValid}
           />
 
           <PasswordInput
             value={confirmPassword}
             onChange={onConfirmPasswordInputChange}
             helperText="Senhas não batem"
-            error={arePasswordConfirmed}
             label="Confirme sua Senha"
+            isValid={isConfirmed}
           />
 
-          <FormButton isDisabled={isDisabled}>
+          {isPasswordValid ||
+            <ValidationWrapper>
+              <Typography className={length ? "valid" : "invalid"}>
+                No mínimo 8 caracteres e no máximo 16.
+              </Typography>
+              <Typography className={lowerUpperNumber ? "valid" : "invalid"}>
+                Conter letras maiúsculas, minúsculas e números.
+              </Typography>
+              <Typography className={special ? "valid" : "invalid"}>
+                Ao menos um caracter especial.
+              </Typography>
+              <Typography className={sequence ? "valid" : "invalid"}>
+                Não pode ter letras ou números em sequência.
+              </Typography>
+          </ValidationWrapper>
+          }
+
+          <FormButton isDisabled={
+            !isNameValid ||
+            !isEmailValid ||
+            !isPasswordValid ||
+            !isConfirmed 
+          }>
             Cadastrar
           </FormButton>
 

@@ -3,6 +3,7 @@ import { EmailInput } from "components/EmailInput";
 import { FormButton } from "components/FormButton";
 import { PasswordInput } from "components/PasswordInput";
 import React from "react";
+import { validateEmail, validatePassword } from "utils/validate";
 import {
   FormBox,
   LinkDescription,
@@ -17,7 +18,8 @@ export const Login: React.FC = () => {
   const [password, setPassword] = React.useState("");
   // const { signIn } = React.useContext(UserContext);
   // const navigate = useNavigate();
-  let isDisabled = email === "" || password === "";
+  let isEmailValid = validateEmail(email);
+  let isPasswordValid = validatePassword(password);
 
   const onEmailInputChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setEmail(event.target.value);
@@ -39,6 +41,7 @@ export const Login: React.FC = () => {
           <EmailInput
             value={email}
             onChange={onEmailInputChange}
+            isValid={isEmailValid}
           />
 
           <PasswordInput
@@ -46,9 +49,10 @@ export const Login: React.FC = () => {
             onChange={onPasswordInputChange}
             label="Informe sua Senha"
             helperText="Senha não está no padrão"
+            isValid={isPasswordValid}
           />
 
-          <FormButton isDisabled={isDisabled}>
+          <FormButton isDisabled={!isEmailValid || !isPasswordValid}>
             Login
           </FormButton>
         </FormControl>

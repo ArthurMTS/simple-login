@@ -1,4 +1,5 @@
 const numbers = /(?=.*\d)/g;
+const name = /[^\w âÂãÃôÔõÕáÁóÓíÍìÌéÉèÈ]/g;
 const special = /(?=.*\W)/g;
 const upperCase = /(?=.*[A-Z])/g;
 const lowerCase = /(?=.*[a-z])/g;
@@ -43,3 +44,6 @@ export const validatePassword = (password: string) => {
     validateSpecial(password)
   );
 };
+
+export const validateName = (value: string) =>
+  !value.match(name) && !numbers.test(value);

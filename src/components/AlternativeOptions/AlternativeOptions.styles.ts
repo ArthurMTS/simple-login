@@ -7,6 +7,7 @@ export const OptionsText = styled(Typography)({
 });
 
 export const OptionsWrapper = styled(Box)({
+  marginTop: -10,
   display: "flex",
   gap: 10,
   "& .MuiSvgIcon-root": {
@@ -17,4 +18,5 @@ export const OptionsWrapper = styled(Box)({
   "& .MuiSvgIcon-root:hover": {
     transform: "scale(1.05)",
   },
+  marginBottom: 5,
 });
