@@ -1,37 +1,43 @@
 import { InputAdornment } from "@mui/material";
 import React from "react";
-import { Lock } from "@mui/icons-material";
-import { PasswordInput as PIStyled } from "./PasswordInput.styles";
+import { InputStyled } from "./Input.styles";
 
-interface PasswordInputProps {
+interface InputProps {
   value: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   helperText: string;
   label: string;
   isValid: boolean;
+  type: "text" | "password" | "email";
+  placeholder?: string;
+  icon?: React.ReactNode;
 }
 
-export const PasswordInput: React.FC<PasswordInputProps> = ({
+export const Input: React.FC<InputProps> = ({
   value,
   onChange,
   helperText,
   label,
   isValid,
+  placeholder,
+  icon,
+  type,
 }) => {
   return (
-    <PIStyled
+    <InputStyled
       className={!isValid ? "error" : ""}
       error={!isValid}
       helperText={!isValid ? helperText : ""}
       variant="outlined"
-      type="password"
+      type={type}
       label={label}
+      placeholder={placeholder}
       value={value}
       onChange={onChange}
       InputProps={{
         startAdornment: (
           <InputAdornment position="start">
-            <Lock color="primary" />
+            {icon}
           </InputAdornment>
         ),
       }}

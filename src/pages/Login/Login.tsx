@@ -1,23 +1,15 @@
 import { AlternativeOptions } from "components/AlternativeOptions";
-import { EmailInput } from "components/EmailInput";
 import { FormButton } from "components/FormButton";
-import { PasswordInput } from "components/PasswordInput";
+import { Input } from "components/Input";
+import { AccountCircle, Lock } from "@mui/icons-material";
 import React from "react";
 import { validateEmail, validatePassword } from "utils/validate";
-import {
-  FormBox,
-  LinkDescription,
-  LoginWrapper,
-  RegisterLink,
-  Title,
-  FormControl
-} from "./Login.styles";
+import { LinkDescription } from "./Login.styles";
+import { Form, FormWrapper, PageWrapper, RegisterLink, Title } from "components/Shared";
 
 export const Login: React.FC = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  // const { signIn } = React.useContext(UserContext);
-  // const navigate = useNavigate();
   let isEmailValid = validateEmail(email);
   let isPasswordValid = validatePassword(password);
 
@@ -25,37 +17,40 @@ export const Login: React.FC = () => {
     setEmail(event.target.value);
   const onPasswordInputChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setPassword(event.target.value);
-  const onFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const onFormSubmit = (event: React.FormEvent<HTMLFormElement>) =>
     event.preventDefault();
-    //const user = signIn(email, password);
-    // if (!user?.name) return;
-    // navigate("/home");
-  };
 
   return (
-    <LoginWrapper>
-      <FormBox>
-        <FormControl onSubmit={onFormSubmit}>
+    <PageWrapper>
+      <FormWrapper>
+        <Form onSubmit={onFormSubmit}>
           <Title>Acesse já sua conta!</Title>
           
-          <EmailInput
+          <Input
             value={email}
             onChange={onEmailInputChange}
             isValid={isEmailValid}
+            icon={<AccountCircle color="primary" />}
+            type="email"
+            label="Informe seu E-mail"
+            placeholder="user@host.com"
+            helperText="Email não está no padrão"
           />
 
-          <PasswordInput
+          <Input
             value={password}
             onChange={onPasswordInputChange}
+            isValid={isPasswordValid}
+            icon={<Lock color="primary" />}
+            type="password"
             label="Informe sua Senha"
             helperText="Senha não está no padrão"
-            isValid={isPasswordValid}
           />
 
           <FormButton isDisabled={!isEmailValid || !isPasswordValid}>
             Login
           </FormButton>
-        </FormControl>
+        </Form>
 
         <AlternativeOptions isLogin={true} />
 
@@ -63,7 +58,7 @@ export const Login: React.FC = () => {
           Ainda não tem uma conta?{" "}
           <RegisterLink to="/register">Crie agora!</RegisterLink>
         </LinkDescription>
-      </FormBox>
-    </LoginWrapper>
+      </FormWrapper>
+    </PageWrapper>
   );
 };

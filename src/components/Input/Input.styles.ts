@@ -1,6 +1,6 @@
 import { styled, TextField } from "@mui/material";
 
-export const PasswordInput = styled(TextField)({
+export const InputStyled = styled(TextField)({
   width: "80%",
   "& .MuiInputBase-input": {
     color: "#F7F7F7",

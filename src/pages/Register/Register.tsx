@@ -1,33 +1,31 @@
 import {
+  AccountCircle,
   ArrowBackIos,
+  Lock,
   InsertEmoticon,
 } from "@mui/icons-material";
-import { InputAdornment, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { AlternativeOptions } from "components/AlternativeOptions";
-import { EmailInput } from "components/EmailInput";
 import { FormButton } from "components/FormButton";
-import { PasswordInput } from "components/PasswordInput";
-import { UserContext } from "contexts/user";
+import { Input } from "components/Input";
+import { Form, FormWrapper, PageWrapper, Title } from "components/Shared";
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import { validateEmail, validateLength, validateLowerUpperNumber, validateName, validatePassword, validateSequenceLength, validateSpecial } from "utils/validate";
 import {
-  FormBox,
-  RegisterWrapper,
-  Title,
-  NameInput,
-  BackLink,
-  FormControl,
-  ValidationWrapper,
-} from "./Register.styles";
+  validateEmail,
+  validateLength,
+  validateLowerUpperNumber,
+  validateName,
+  validatePassword,
+  validateSequenceLength,
+  validateSpecial,
+} from "utils/validate";
+import { BackLink, ValidationWrapper } from "./Register.styles";
 
 export const Register: React.FC = () => {
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
-  const navigate = useNavigate();
-  const { signUp } = React.useContext(UserContext);
   let isNameValid = validateName(name);
   let isEmailValid = validateEmail(email);
   let isPasswordValid = validatePassword(password);
@@ -35,7 +33,7 @@ export const Register: React.FC = () => {
   let length = validateLength(password);
   let lowerUpperNumber = validateLowerUpperNumber(password);
   let special = validateSpecial(password);
-  let sequence = validateSequenceLength(password)
+  let sequence = validateSequenceLength(password);
 
   const onNameInputChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setName(event.target.value);
@@ -46,63 +44,60 @@ export const Register: React.FC = () => {
   const onConfirmPasswordInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => setConfirmPassword(event.target.value);
-  const onFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const onFormSubmit = (event: React.FormEvent<HTMLFormElement>) =>
     event.preventDefault();
-    signUp(name, email, password);
-    navigate("/");
-  };
 
   return (
-    <RegisterWrapper>
-      <FormBox>
+    <PageWrapper>
+      <FormWrapper>
         <BackLink to="/">
           <ArrowBackIos />
         </BackLink>
         <Title>Crie já sua conta!</Title>
-        <FormControl onSubmit={onFormSubmit}>
-          <NameInput
-            className={!isNameValid ? "error" : ""}
-            error={!isNameValid}
-            helperText={!isNameValid ? "Nome não pode conter números nem símbolos especiais" : ""}
-            variant="outlined"
+        <Form onSubmit={onFormSubmit}>
+          <Input
+            value={name}
+            onChange={onNameInputChange}
+            isValid={isNameValid}
+            icon={<InsertEmoticon color="primary" />}
             type="text"
             label="Informe seu Nome"
             placeholder="Nome Sobrenome"
-            value={name}
-            onChange={onNameInputChange}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <InsertEmoticon color="primary" />
-                </InputAdornment>
-              ),
-            }}
-            required
+            helperText="Nome não pode conter números nem símbolos especiais"
           />
 
-          <EmailInput
+          <Input
             value={email}
             onChange={onEmailInputChange}
             isValid={isEmailValid}
+            icon={<AccountCircle color="primary" />}
+            type="email"
+            label="Informe seu E-mail"
+            placeholder="user@host.com"
+            helperText="Email não está no padrão"
           />
 
-          <PasswordInput
+          <Input
             value={password}
             onChange={onPasswordInputChange}
+            isValid={isPasswordValid}
+            icon={<Lock color="primary" />}
+            type="password"
             label="Informe sua Senha"
             helperText="Senha não está no padrão"
-            isValid={isPasswordValid}
           />
 
-          <PasswordInput
+          <Input
             value={confirmPassword}
             onChange={onConfirmPasswordInputChange}
-            helperText="Senhas não batem"
-            label="Confirme sua Senha"
             isValid={isConfirmed}
+            icon={<Lock color="primary" />}
+            type="password"
+            label="Confirme sua Senha"
+            helperText="Senhas não batem"
           />
 
-          {isPasswordValid ||
+          {isPasswordValid || (
             <ValidationWrapper>
               <Typography className={length ? "valid" : "invalid"}>
                 No mínimo 8 caracteres e no máximo 16.
@@ -116,23 +111,20 @@ export const Register: React.FC = () => {
               <Typography className={sequence ? "valid" : "invalid"}>
                 Não pode ter letras ou números em sequência.
               </Typography>
-          </ValidationWrapper>
-          }
+            </ValidationWrapper>
+          )}
 
-          <FormButton isDisabled={
-            !isNameValid ||
-            !isEmailValid ||
-            !isPasswordValid ||
-            !isConfirmed 
-          }>
+          <FormButton
+            isDisabled={
+              !isNameValid || !isEmailValid || !isPasswordValid || !isConfirmed
+            }
+          >
             Cadastrar
           </FormButton>
-
-        </FormControl>
+        </Form>
 
         <AlternativeOptions isLogin={false} />
-        
-      </FormBox>
-    </RegisterWrapper>
+      </FormWrapper>
+    </PageWrapper>
   );
 };
